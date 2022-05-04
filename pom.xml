@@ -10,14 +10,16 @@
 	</parent>
 	<groupId>com.musala</groupId>
 	<artifactId>drone</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>0.0.1</version>
 	<name>drone</name>
 	<description>Musala Soft Drone Project</description>
 	<properties>
 		<java.version>17</java.version>
-		<data.version>2.6.4</data.version>
+		<data.version>2.6.7</data.version>
 		<web.version>2.6.7</web.version>
 		<db.version>42.3.4</db.version>
+		<lombok.version>1.18.24</lombok.version>
+		<jakarta.version>3.0.1</jakarta.version>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -31,8 +33,8 @@
 			<scope>test</scope>
 		</dependency>
 		<dependency>
-			<groupId>org.springframework.data</groupId>
-			<artifactId>spring-data-jpa</artifactId>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-jpa</artifactId>
 			<version>${data.version}</version>
 		</dependency>
 		<dependency>
@@ -44,6 +46,24 @@
 			<groupId>org.postgresql</groupId>
 			<artifactId>postgresql</artifactId>
 			<version>${db.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.h2database</groupId>
+			<artifactId>h2</artifactId>
+			<version>2.1.212</version>
+			<scope>runtime</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<version>${lombok.version}</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>jakarta.validation</groupId>
+			<artifactId>jakarta.validation-api</artifactId>
+			<version>${jakarta.version}</version>
 		</dependency>
 
 
