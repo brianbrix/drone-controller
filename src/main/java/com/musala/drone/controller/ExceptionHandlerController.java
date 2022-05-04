@@ -1,5 +1,7 @@
 package com.musala.drone.controller;
 
+import com.musala.drone.exceptions.NotFoundException;
+import com.musala.drone.exceptions.NullObjectException;
 import com.musala.drone.responses.ErrorResponse;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.http.HttpStatus;
@@ -27,6 +29,26 @@ public class ExceptionHandlerController {
             WebRequest request
     ){
         log.error("Unable to construct message from body.", exception);
+        return buildErrorResponse(exception, exception.getMessage(), HttpStatus.BAD_REQUEST, request);
+    }
+
+    @ExceptionHandler(NotFoundException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ResponseEntity<ErrorResponse> handleNotFoundException(
+            NotFoundException exception,
+            WebRequest request
+    ){
+        log.error("Object not found.", exception);
+        return buildErrorResponse(exception, exception.getMessage(), HttpStatus.BAD_REQUEST, request);
+    }
+
+    @ExceptionHandler(NullObjectException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ResponseEntity<ErrorResponse> handleMessageNullObjectException(
+            NullObjectException exception,
+            WebRequest request
+    ){
+        log.error("Null object given.", exception);
         return buildErrorResponse(exception, exception.getMessage(), HttpStatus.BAD_REQUEST, request);
     }
 
