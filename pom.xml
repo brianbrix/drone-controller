@@ -19,7 +19,7 @@
 		<web.version>2.6.7</web.version>
 		<db.version>42.3.4</db.version>
 		<lombok.version>1.18.24</lombok.version>
-		<jakarta.version>3.0.1</jakarta.version>
+		<model-mapper.version>2.4.4</model-mapper.version>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -61,9 +61,20 @@
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
-			<groupId>jakarta.validation</groupId>
-			<artifactId>jakarta.validation-api</artifactId>
-			<version>${jakarta.version}</version>
+			<groupId>org.modelmapper</groupId>
+			<artifactId>modelmapper</artifactId>
+			<version>${model-mapper.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-validation</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.13.1</version>
+			<scope>test</scope>
 		</dependency>
 
 

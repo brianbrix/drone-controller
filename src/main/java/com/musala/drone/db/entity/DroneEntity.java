@@ -1,11 +1,11 @@
 package com.musala.drone.db.entity;
 
-import com.musala.drone.enums.Model;
-import com.musala.drone.enums.State;
-import jakarta.validation.constraints.DecimalMax;
+import com.musala.drone.enums.ModelEnum;
+import com.musala.drone.enums.StateEnum;
 import lombok.*;
 
 import javax.persistence.*;
+import javax.validation.constraints.DecimalMax;
 import java.io.Serializable;
 import java.util.Set;
 
@@ -23,13 +23,14 @@ public class DroneEntity implements Serializable {
     @Column(length = 100)
     private String serialNumber;
     @Enumerated(EnumType.STRING)
-    private Model model;
+    private ModelEnum model;
     @DecimalMax("500.0")
     private Double weight;
     private Double batteryCapacity;
     @Enumerated(EnumType.STRING)
-    private State state;
+    private StateEnum state;
     @OneToMany(mappedBy="drone")
     private Set<MedicationEntity> medications;
+    private Boolean available=true;
 
 }

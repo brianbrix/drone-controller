@@ -1,9 +1,9 @@
 package com.musala.drone.models;
 
-import jakarta.validation.constraints.Pattern;
 import lombok.*;
+import org.springframework.web.multipart.MultipartFile;
 
-import javax.persistence.*;
+import javax.validation.constraints.Pattern;
 
 @Setter
 @Getter
@@ -12,10 +12,10 @@ import javax.persistence.*;
 @NoArgsConstructor
 public class Medication {
     private Long id;
-    @Pattern(regexp = "^[a-zA-Z0-9_-]*$",message = "Medicine name contains invalid characters")
+    @Pattern(regexp = "^[a-zA-Z0-9_-]*$",message = "Medication name contains invalid characters")
     private String name;
     private Double weight;
     @Pattern(regexp = "^[A-Z0-9_]*$", message = "Code contains invalid characters.")
     private String code;
-    private String image;
+    private MultipartFile image;
 }

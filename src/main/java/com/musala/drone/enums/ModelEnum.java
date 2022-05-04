@@ -1,5 +1,5 @@
 package com.musala.drone.enums;
 
-public enum Model {
+public enum ModelEnum {
     Lightweight, Middleweight, Cruiserweight, Heavyweight
 }
