@@ -1,7 +1,6 @@
 package com.musala.drone.models;
 
 import lombok.*;
-import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.constraints.Pattern;
 
@@ -17,5 +16,6 @@ public class Medication {
     private Double weight;
     @Pattern(regexp = "^[A-Z0-9_]*$", message = "Code contains invalid characters.")
     private String code;
-    private MultipartFile image;
+//    private String image="image";
+//    private MultipartFile image;
 }

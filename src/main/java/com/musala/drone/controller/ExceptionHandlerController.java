@@ -1,7 +1,9 @@
 package com.musala.drone.controller;
 
+import com.musala.drone.exceptions.BatteryException;
 import com.musala.drone.exceptions.NotFoundException;
 import com.musala.drone.exceptions.NullObjectException;
+import com.musala.drone.exceptions.WeightException;
 import com.musala.drone.responses.ErrorResponse;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.http.HttpStatus;
@@ -41,6 +43,28 @@ public class ExceptionHandlerController {
         log.error("Object not found.", exception);
         return buildErrorResponse(exception, exception.getMessage(), HttpStatus.BAD_REQUEST, request);
     }
+
+    @ExceptionHandler(WeightException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ResponseEntity<ErrorResponse> handleWeightException(
+            WeightException exception,
+            WebRequest request
+    ){
+        log.error("Exceeded weight limit.", exception);
+        return buildErrorResponse(exception, exception.getMessage(), HttpStatus.BAD_REQUEST, request);
+    }
+
+    @ExceptionHandler(BatteryException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ResponseEntity<ErrorResponse> handleBatteryException(
+            BatteryException exception,
+            WebRequest request
+    ){
+        log.error("Battery too low.", exception);
+        return buildErrorResponse(exception, exception.getMessage(), HttpStatus.BAD_REQUEST, request);
+    }
+
+
 
     @ExceptionHandler(NullObjectException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)

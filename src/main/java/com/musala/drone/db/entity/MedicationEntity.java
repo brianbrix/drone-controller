@@ -1,5 +1,6 @@
 package com.musala.drone.db.entity;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 
 import javax.persistence.*;
@@ -13,13 +14,14 @@ import javax.persistence.*;
 @NoArgsConstructor
 public class MedicationEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String name;
     private Double weight;
     private String code;
     private String image;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name="drone_id", nullable=false)
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private DroneEntity drone;
 }

@@ -6,9 +6,9 @@ import com.musala.drone.services.DroneService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
-import java.util.Set;
 
 @RestController
 @RequestMapping("drones")
@@ -20,9 +20,15 @@ public class DroneAppController {
     Drone addDrone(@Valid @RequestBody Drone drone) {
         return droneService.registerDrone(drone);
     }
-    @PostMapping("/{droneId}/addItems")
-    Drone addDrone(@PathVariable(name = "droneId") Long droneId, @Valid @RequestBody Set<Medication> medicationSet) throws Exception {
-        return droneService.loadMedicationItems(droneId,medicationSet);
+    @PostMapping(value = "{droneId}/addItem", consumes = {"multipart/form-data"})
+    Drone addDrone(@PathVariable(name = "droneId") Long droneId, @RequestParam("name") String name, @RequestParam("weight") Double weight, @RequestParam("code") String code, @RequestParam("file") MultipartFile file) throws Exception {
+        var medication = Medication.builder()
+                .code(code)
+                .name(name)
+                .weight(weight)
+                .build();
+
+        return droneService.loadMedicationItems(droneId,medication, file);
     }
 
 

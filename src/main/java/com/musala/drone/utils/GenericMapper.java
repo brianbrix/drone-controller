@@ -1,19 +1,24 @@
 package com.musala.drone.utils;
 
-import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.modelmapper.config.Configuration;
 
-@RequiredArgsConstructor
 public class GenericMapper <T, V>{
-    @Autowired
-   private ModelMapper modelMapper = new ModelMapper();
+   private final ModelMapper modelMapper;
+
+   public GenericMapper()
+    {
+        this.modelMapper= new ModelMapper();
+        this.modelMapper.getConfiguration().setFieldMatchingEnabled(true)
+                .setFieldAccessLevel(Configuration.AccessLevel.PRIVATE);
+    }
    public V mapForward(T t, Class<V> v)
    {
-       return modelMapper.map(t, v);
+
+       return this.modelMapper.map(t, v);
    }
     public T mapReverse(V v, Class<T> t)
     {
-        return modelMapper.map(v, t);
+        return this.modelMapper.map(v, t);
     }
 }

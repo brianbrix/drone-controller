@@ -8,6 +8,7 @@ import lombok.*;
 import javax.validation.constraints.DecimalMax;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.Set;
 
 @Setter
@@ -27,6 +28,6 @@ public class Drone implements Serializable {
     private Double batteryCapacity;
     @State(message = "Invalid State given")
     private String state;
-    private Set<Medication> items;
+    private Set<Medication> items = new HashSet<>();
 
 }
