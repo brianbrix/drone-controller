@@ -2,6 +2,7 @@ package com.musala.drone.services;
 
 import com.musala.drone.models.Drone;
 import com.musala.drone.models.Medication;
+import com.musala.drone.models.resp.BatteryResp;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -12,7 +13,8 @@ import java.util.Set;
 public interface DroneService {
     Drone registerDrone(Drone drone);
     Drone loadMedicationItems(Long droneId, Medication medicationSet, MultipartFile file) throws Exception;
-    Set<Medication> checkLoadedMedications(Long droneId);
+    List<Medication> checkLoadedMedications(Long droneId);
     List<Drone> checkAvailableDrones();
-    Double checkBatterCapacity(Long droneId);
+    List<Drone> getAllDrones();
+    BatteryResp checkBatteryCapacity(Long droneId);
 }

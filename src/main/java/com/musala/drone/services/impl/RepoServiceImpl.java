@@ -6,6 +6,7 @@ import com.musala.drone.services.RepoService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @RequiredArgsConstructor
@@ -20,5 +21,15 @@ public class RepoServiceImpl implements RepoService {
     @Override
     public Optional<DroneEntity> findById(Long id) {
         return droneRepository.findById(id);
+    }
+
+    @Override
+    public List<DroneEntity> findAvailable() {
+        return droneRepository.findAllByAvailable(true);
+    }
+
+    @Override
+    public List<DroneEntity> findAll() {
+        return droneRepository.findAll();
     }
 }

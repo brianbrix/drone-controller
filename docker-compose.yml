@@ -5,19 +5,32 @@ services:
     image: 'musala-drone:latest'
     build:
       context: .
+      dockerfile: Dockerfile
     container_name: app
     depends_on:
       - db
+    expose:
+      - 8081
     environment:
-      - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/compose-postgres
-      - SPRING_DATASOURCE_USERNAME=postgres-user
-      - SPRING_DATASOURCE_PASSWORD=postgres-user
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/musala_drone
+      - SPRING_DATASOURCE_USERNAME=postgres_user
+      - SPRING_DATASOURCE_PASSWORD=postgres_pass
       - SPRING_JPA_HIBERNATE_DDL_AUTO=update
-      - SPRING_PROFILES_ACTIVE=dev
+      - SPRING_PROFILES_ACTIVE=live
+#      - dbhost=localhost
+#    network_mode: host
 
   db:
-    image: 'postgres:13.1-alpine'
+#    image: 'postgres:13.1-alpine'
+    build:
+      context: .
+      dockerfile: DBDockerfile
+    volumes:
+      - .:/docker-entrypoint-initdb.d/
+#      - ./var/pgdata:/var/lib/postgresql/data
     container_name: db
     environment:
-      - POSTGRES_USER=postgres-user
-      - POSTGRES_PASSWORD=postgres=-pass
+      - POSTGRES_USER=postgres_user
+      - POSTGRES_PASSWORD=postgres_pass
+    ports:
+      - "5432:5432"

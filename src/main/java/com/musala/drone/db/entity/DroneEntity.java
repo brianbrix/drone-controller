@@ -33,6 +33,7 @@ public class DroneEntity implements Serializable {
     private StateEnum state;
     @OneToMany(mappedBy = "drone", cascade = CascadeType.ALL)
     private List<MedicationEntity> items= new ArrayList<>();
-    private Boolean available=true;
+    @Column(columnDefinition="boolean default true")
+    private boolean available = true;
 
 }

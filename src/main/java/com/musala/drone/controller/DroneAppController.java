@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @RestController
 @RequestMapping("drones")
@@ -29,6 +30,22 @@ public class DroneAppController {
                 .build();
 
         return droneService.loadMedicationItems(droneId,medication, file);
+    }
+    @GetMapping(value = "{droneId}/getItems")
+    List<Medication> getItems(@PathVariable(name = "droneId") Long droneId)
+    {
+        return droneService.checkLoadedMedications(droneId);
+    }
+
+    @GetMapping(value = "available")
+    List<Drone> getAvailable()
+    {
+        return droneService.checkAvailableDrones();
+    }
+    @GetMapping
+    List<Drone> getAll()
+    {
+        return droneService.getAllDrones();
     }
 
 

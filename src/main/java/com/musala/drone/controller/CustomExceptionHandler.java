@@ -22,7 +22,7 @@ import java.util.Objects;
 
 @Log4j2
 @ControllerAdvice
-public class ExceptionHandlerController {
+public class CustomExceptionHandler {
 
     @ExceptionHandler(HttpMessageNotReadableException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
@@ -76,6 +76,7 @@ public class ExceptionHandlerController {
         return buildErrorResponse(exception, exception.getMessage(), HttpStatus.BAD_REQUEST, request);
     }
 
+
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<ErrorResponse> handleValidationExceptions(
@@ -88,7 +89,6 @@ public class ExceptionHandlerController {
             String errorMessage = error.getDefaultMessage();
             Objects.requireNonNull(response.getBody()).addValidationError(fieldName,errorMessage);
         });
-        log.info("Error here: {}",response);
         return response;
     }
 
