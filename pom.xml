@@ -22,6 +22,7 @@
 		<model-mapper.version>2.4.4</model-mapper.version>
 		<apache-commons.version>3.12.0</apache-commons.version>
 		<mapstruct.version>1.4.2.Final</mapstruct.version>
+		<springfox.version>3.0.0</springfox.version>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -100,8 +101,16 @@
 			<artifactId>commons-lang3</artifactId>
 			<version>${apache-commons.version}</version>
 		</dependency>
-
-
+		<dependency>
+			<groupId>io.springfox</groupId>
+			<artifactId>springfox-boot-starter</artifactId>
+			<version>${springfox.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>io.springfox</groupId>
+			<artifactId>springfox-swagger-ui</artifactId>
+			<version>${springfox.version}</version>
+		</dependency>
 
 	</dependencies>
 
