@@ -2,7 +2,6 @@ package com.musala.drone.Validators;
 
 
 import com.musala.drone.enums.ModelEnum;
-import com.musala.drone.enums.StateEnum;
 
 import javax.validation.Constraint;
 import javax.validation.ConstraintValidator;
@@ -29,8 +28,7 @@ Annotation to validate model field
 @Target( { ElementType.METHOD, ElementType.FIELD } )
 @Retention(RetentionPolicy.RUNTIME)
 public @interface Model {
-    String message() default "Must be in Model Enum";
-    //represents group of constraints
+    String message() default "Must be in Model options";
     Class<?>[] groups() default {};
-    Class<? extends Payload>[] payload() default {};
+    Class<? extends Payload>[] payload() default {};//additonal infor about annotation
 }

@@ -28,7 +28,7 @@ public class Drone implements Serializable {
     private Double batteryCapacity;
     @State(message = "Invalid State given")
     private String state;
-//    private Set<Medication> items = new HashSet<>();
-    private Boolean available=true;
+    private Set<Medication> items = new HashSet<>();
+
 
 }

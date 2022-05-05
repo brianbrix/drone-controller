@@ -2,6 +2,7 @@ package com.musala.drone.services.impl;
 
 import com.musala.drone.db.entity.DroneEntity;
 import com.musala.drone.db.repos.DroneRepository;
+import com.musala.drone.enums.StateEnum;
 import com.musala.drone.services.RepoService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -25,7 +26,7 @@ public class RepoServiceImpl implements RepoService {
 
     @Override
     public List<DroneEntity> findAvailable() {
-        return droneRepository.findAllByAvailable(true);
+        return droneRepository.findAllByState(StateEnum.IDLE);
     }
 
     @Override

@@ -16,6 +16,6 @@ public class Medication {
     private Double weight;
     @Pattern(regexp = "^[A-Z0-9_]*$", message = "Code contains invalid characters.")
     private String code;
-//    private String image="image";
+    private String image;
 //    private MultipartFile image;
 }

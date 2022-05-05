@@ -1,5 +1,6 @@
 package com.musala.drone.db.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 
@@ -20,7 +21,8 @@ public class MedicationEntity {
     private Double weight;
     private String code;
     private String image;
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JsonBackReference
     @JoinColumn(name="drone_id", nullable=false)
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private DroneEntity drone;

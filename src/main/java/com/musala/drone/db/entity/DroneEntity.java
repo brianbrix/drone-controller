@@ -1,5 +1,6 @@
 package com.musala.drone.db.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.musala.drone.enums.ModelEnum;
 import com.musala.drone.enums.StateEnum;
@@ -31,9 +32,9 @@ public class DroneEntity implements Serializable {
     private Double batteryCapacity;
     @Enumerated(EnumType.STRING)
     private StateEnum state;
-    @OneToMany(mappedBy = "drone", cascade = CascadeType.ALL)
-    private List<MedicationEntity> items= new ArrayList<>();
-    @Column(columnDefinition="boolean default true")
-    private boolean available = true;
+    @JsonIgnore
+    @OneToMany(mappedBy = "drone", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JsonManagedReference
+    private List<MedicationEntity> items;
 
 }

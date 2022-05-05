@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.musala.drone.db.entity.DroneEntity;
 import com.musala.drone.db.entity.MedicationEntity;
 import com.musala.drone.db.repos.DroneRepository;
+import com.musala.drone.enums.StateEnum;
 import com.musala.drone.exceptions.BatteryException;
 import com.musala.drone.exceptions.NotFoundException;
 import com.musala.drone.exceptions.WeightException;
@@ -32,10 +33,10 @@ public class DroneServiceImpl implements DroneService {
     GenericMapper<Medication, MedicationEntity> genericMapper2= new GenericMapper<>();
     @Override
     public Drone registerDrone(Drone drone) {
-
+        drone.setState("IDLE");
         var droneEntity= genericMapper.mapForward(drone,DroneEntity.class);
         var addedDrone = repoService.addDrone(droneEntity);
-        log.info("ADED: {}", new Gson().toJson(addedDrone));
+        log.info("ADDED: {}", new Gson().toJson(addedDrone));
         return genericMapper.mapReverse(addedDrone,Drone.class);
     }
 
@@ -44,48 +45,65 @@ public class DroneServiceImpl implements DroneService {
         log.info("In service");
         var drone= repoService.findById(droneId);
         log.info(new Gson().toJson(medication));
+        var filePath = FileSaver.save(file, file.getOriginalFilename());
+        var medicationEntity= genericMapper2.mapForward(medication,MedicationEntity.class);
+        medicationEntity.setImage(filePath);
 
-        if (drone.isPresent())
-        {
+        var droneEntity = droneRepository.save(addItems(droneId, medication));
+            return genericMapper.mapReverse(droneEntity,Drone.class);
 
+    }
 
-            var filePath = FileSaver.save(file, medication.getName());
-            var medicationEntity= genericMapper2.mapForward(medication,MedicationEntity.class);
-            medicationEntity.setImage(filePath);
+    private DroneEntity addItems(Long droneId, Medication medication)
+    {
+        var drone= repoService.findById(droneId);
 
-            var d = drone.get();
-            var weight= d.getWeight();
-            weight+=medication.getWeight();
-            log.info("Weight: {}",weight);
-            if (weight>500)
-            {
-                d.setAvailable(false);
-                throw new WeightException("The drone will exit weight limit. Please Reduce the load!!!");
+        if (drone.isPresent()) {
+
+            var medicationEntity = genericMapper2.mapForward(medication, MedicationEntity.class);
+            var droneEntity = drone.get();
+            if (droneEntity.getState().equals(StateEnum.IDLE) || droneEntity.getState().equals(StateEnum.LOADING)) {
+                var weight = droneEntity.getWeight();
+                weight += medication.getWeight();
+                log.info("Weight: {}", weight);
+                if (weight > 500) {
+                    droneEntity.setState(StateEnum.LOADED);
+                    throw new WeightException("The drone will exceed weight limit. Please Reduce the load!!!. Drone ID:" + droneEntity.getId());
+                }
+                droneEntity.setState(StateEnum.LOADING);
+                droneEntity.setWeight(weight);
+                var batteryCapacity = droneEntity.getBatteryCapacity();
+                if (batteryCapacity < 25) {
+                    droneEntity.setState(StateEnum.LOADED);
+                    throw new BatteryException("Battery is below 25%!!!");
+                }
+                droneEntity.setState(StateEnum.LOADING);
+                //Assume that each medication will consume 10 % of the battery
+                batteryCapacity -= 10;
+                droneEntity.setBatteryCapacity(batteryCapacity);
+                var medicationEntities = droneEntity.getItems();
+                medicationEntity.setDrone(droneEntity);
+                medicationEntities.add(medicationEntity);
+
+                droneEntity.setItems(medicationEntities);
+
+                return droneEntity;
             }
-            d.setWeight(weight);
-            var batteryCapacity= d.getBatteryCapacity();
-            if (batteryCapacity<25)
-            {
-                d.setAvailable(false);
-                throw new BatteryException("Battery is below 25%!!!");
-            }
-            //Assume that each medication will consume 10 % of the battery
-            batteryCapacity-=10;
-            d.setBatteryCapacity(batteryCapacity);
-            var medicationEntities= d.getItems();
-            medicationEntity.setDrone(d);
-            medicationEntities.add(medicationEntity);
-
-            d.setItems(medicationEntities);
-            var saveDrone = repoService.addDrone(d);
-
-            var res = genericMapper.mapReverse(saveDrone,Drone.class);
-            //We have to get the list due to type erasure of ModelMapper at runtime
-//            var ls = medicationEntities.stream().map(med ->genericMapper2.mapReverse(med,Medication.class)).collect(Collectors.toSet());
-//            res.setItems(ls);
-            return res;
         }
-        throw  new NotFoundException("Drone not found.");
+            throw  new NotFoundException("Drone not found.");
+    }
+
+    @Override
+    public Drone loadMedicationItemsList(Long droneId, List<Medication> medications) throws Exception {
+        DroneEntity droneEntity= new DroneEntity();
+        for (Medication medication: medications)
+        {
+             droneEntity = addItems(droneId,medication);
+        }
+        var ls = droneEntity.getItems().stream().map(med ->genericMapper2.mapReverse(med,Medication.class)).collect(Collectors.toSet());
+        var res = genericMapper.mapReverse(droneRepository.save(droneEntity),Drone.class);
+        res.setItems(ls);
+        return res;
     }
 
     @Override
@@ -121,6 +139,18 @@ public class DroneServiceImpl implements DroneService {
         }
         else
             throw new NotFoundException("Drone not found.");
+    }
+
+    @Override
+    public Drone editDrone(Long droneId,Drone drone) {
+        var optionalDroneEntity= repoService.findById(droneId);
+        if (optionalDroneEntity.isPresent()) {
+             var droneEntity = optionalDroneEntity.get();
+            droneEntity = droneRepository.save(genericMapper.mapForward(drone,DroneEntity.class));
+            return genericMapper.mapReverse(droneEntity, Drone.class);
+
+        }
+        throw new NotFoundException("Drone not found");
     }
 
 

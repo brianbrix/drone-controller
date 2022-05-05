@@ -9,6 +9,10 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Objects;
 
+/**
+ *
+ *This class will be used incase we upload images as Multipart files to Medication items
+ */
 public class FileSaver {
 
     private static final String RESOURCES_DIR = Objects.requireNonNull(FileSaver.class.getResource("/"))

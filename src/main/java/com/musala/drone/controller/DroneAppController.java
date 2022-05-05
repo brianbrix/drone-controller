@@ -21,8 +21,20 @@ public class DroneAppController {
     Drone addDrone(@Valid @RequestBody Drone drone) {
         return droneService.registerDrone(drone);
     }
-    @PostMapping(value = "{droneId}/addItem", consumes = {"multipart/form-data"})
-    Drone addDrone(@PathVariable(name = "droneId") Long droneId, @RequestParam("name") String name, @RequestParam("weight") Double weight, @RequestParam("code") String code, @RequestParam("file") MultipartFile file) throws Exception {
+
+    /**
+     * This method is to be used incase we want to submit the image as Multipart formdata
+     * @param droneId
+     * @param name
+     * @param weight
+     * @param code
+     * @param file
+     * @return
+     * @throws Exception
+     */
+    @Deprecated
+    @PostMapping(value = "{droneId}/addItem1", consumes = {"multipart/form-data"})
+    Drone addDrone1(@PathVariable(name = "droneId") Long droneId, @RequestParam("name") String name, @RequestParam("weight") Double weight, @RequestParam("code") String code, @RequestParam("file") MultipartFile file) throws Exception {
         var medication = Medication.builder()
                 .code(code)
                 .name(name)
@@ -31,6 +43,24 @@ public class DroneAppController {
 
         return droneService.loadMedicationItems(droneId,medication, file);
     }
+
+    /**
+     * This method allows us to add Medication items to a drone + image as a URL to image location
+     * @param droneId
+     * @param medications
+     * @return
+     * @throws Exception
+     */
+    @PostMapping(value = "{droneId}/addItems")
+    Drone addDrone(@PathVariable Long droneId, @Valid @RequestBody List<Medication> medications) throws Exception {
+        return droneService.loadMedicationItemsList(droneId,medications);
+    }
+
+    /**
+     * Controller to return loaded medicines for drone
+     * @param droneId
+     * @return
+     */
     @GetMapping(value = "{droneId}/getItems")
     List<Medication> getItems(@PathVariable(name = "droneId") Long droneId)
     {
@@ -46,6 +76,12 @@ public class DroneAppController {
     List<Drone> getAll()
     {
         return droneService.getAllDrones();
+    }
+
+    @PutMapping("update/{droneId}")
+    Drone update(Long droneId, Drone drone)
+    {
+        return droneService.editDrone(droneId, drone);
     }
 
 
