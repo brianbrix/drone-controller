@@ -18,6 +18,7 @@ REST API that allows clients to communicate with the drones (i.e. dispatch contr
 - Git
 
 ##RUNNING THE PROJECT
+.
 ##Installations
 - **Tested Linux and similar OS**
 
