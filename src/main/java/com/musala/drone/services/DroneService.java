@@ -11,7 +11,7 @@ import java.util.List;
 @Service
 public interface DroneService {
     Drone registerDrone(Drone drone);
-    Drone loadMedicationItems(Long droneId, Medication medicationSet, MultipartFile file) throws Exception;
+    Drone loadMedicationItem(Long droneId, Medication medicationSet, MultipartFile file) throws Exception;
     Drone loadMedicationItemsList(Long droneId, List<Medication> medications) throws Exception;
     List<Medication> checkLoadedMedications(Long droneId);
     List<Drone> checkAvailableDrones();

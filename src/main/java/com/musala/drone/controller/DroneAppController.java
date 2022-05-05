@@ -2,6 +2,7 @@ package com.musala.drone.controller;
 
 import com.musala.drone.models.Drone;
 import com.musala.drone.models.Medication;
+import com.musala.drone.models.resp.BatteryResp;
 import com.musala.drone.services.DroneService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -41,7 +42,7 @@ public class DroneAppController {
                 .weight(weight)
                 .build();
 
-        return droneService.loadMedicationItems(droneId,medication, file);
+        return droneService.loadMedicationItem(droneId,medication, file);
     }
 
     /**
@@ -79,10 +80,14 @@ public class DroneAppController {
     }
 
     @PutMapping("update/{droneId}")
-    Drone update(Long droneId, Drone drone)
+    Drone update(@PathVariable Long droneId, @RequestBody Drone drone)
     {
         return droneService.editDrone(droneId, drone);
     }
 
-
+    @GetMapping("battery/{droneId}")
+    BatteryResp getBatteryCapacity(@PathVariable Long droneId)
+    {
+        return droneService.checkBatteryCapacity(droneId);
+    }
 }

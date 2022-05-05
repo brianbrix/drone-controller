@@ -17,5 +17,4 @@ public class Medication {
     @Pattern(regexp = "^[A-Z0-9_]*$", message = "Code contains invalid characters.")
     private String code;
     private String image;
-//    private MultipartFile image;
 }
