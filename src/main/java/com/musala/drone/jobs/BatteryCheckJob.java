@@ -52,7 +52,6 @@ public class BatteryCheckJob {
         log.info(fileWriter);
         for (DroneEntity drone: drones)
         {
-
             log.info("Date: "+ LocalDateTime.now() +"  Drone: "+drone.getId()+"  Serial: "+drone.getSerialNumber()+"  BATTERY: "+drone.getBatteryCapacity());
             fileWriter.write("Date: "+ LocalDateTime.now() +"  Drone: "+drone.getId()+"  Serial: "+drone.getSerialNumber()+"  BATTERY: "+drone.getBatteryCapacity()+"\n");
             if (drone.getBatteryCapacity()<25)
