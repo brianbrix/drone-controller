@@ -54,3 +54,9 @@ will take you to the API Documentation UI where you can find test the various en
 - Each medication item image is a url to the image location.
 - A new drone is registered with the IDLE state.
 - Battery check logs are logged to user's **Documents** folder.
+- Battery checks occur every 5 minutes.
+
+
+
+
+-[ ] THE END
