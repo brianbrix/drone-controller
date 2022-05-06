@@ -17,15 +17,15 @@ REST API that allows clients to communicate with the drones (i.e. dispatch contr
 - Docker
 - Git
 
-###RUNNING THE PROJECT
+### RUNNING THE PROJECT
 .
-#Installations
+# Installations
 - **Tested on Ubuntu Linux and similar OS**
 
 Follow the following link to install **docker** and **docker-compose**
 - [ ] [Docker](https://docs.docker.com/engine/install/ubuntu/) 
 - [ ] [Docker Compose](https://docs.docker.com/compose/install/)
-###Running the app
+### Running the app
 Then run the following commands:
 ```
 git clone https://gitlab.com/brianbrix/musala-drone.git
@@ -48,8 +48,9 @@ Then eventually it will start the application. This can be observed from the log
 http://localhost:8081/swagger-ui/#/drone-app-controller
 will take you to the API Documentation UI where you can find test the various endpoints.
 
-##Assumptions 
+## Assumptions 
 - Each medication item will reduce a drone's battery capacity by 10.
 - Each medication item image is a url to the image location.
 - A new drone is registered with the IDLE state.
 - Battery check logs are logged to user's **Documents** folder.
+NB: Sometimes the App may fail to create the log file. So it is recommended that you create a file called "**battery.log**" in Documents folder before running any of the commands above.
