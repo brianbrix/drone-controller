@@ -18,7 +18,7 @@ services:
       - SPRING_JPA_HIBERNATE_DDL_AUTO=update
       - SPRING_PROFILES_ACTIVE=live
     volumes:
-      - /homeDir/Documents:/user/local/Documents
+      - ~/Documents:/user/local/Documents
     network_mode: host
 
 
