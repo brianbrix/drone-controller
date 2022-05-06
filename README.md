@@ -17,15 +17,15 @@ REST API that allows clients to communicate with the drones (i.e. dispatch contr
 - Docker
 - Git
 
-##RUNNING THE PROJECT
+###RUNNING THE PROJECT
 .
-##Installations
+#Installations
 - **Tested Linux and similar OS**
 
 Follow the following link to install **docker** and **docker-compose**
 - [ ] [Docker](https://docs.docker.com/engine/install/ubuntu/) 
 - [ ] [Docker Compose](https://docs.docker.com/compose/install/)
-##Running the app
+###Running the app
 Then run the following commands:
 ```
 git clone https://gitlab.com/brianbrix/musala-drone.git
