@@ -53,10 +53,8 @@ will take you to the API Documentation UI where you can find test the various en
 - Each medication item will reduce a drone's battery capacity by 10.
 - Each medication item image is a url to the image location.
 - A new drone is registered with the IDLE state.
-- Battery check logs are logged to user's **Documents** folder.
+- Battery check logs are logged to user's **Documents** folder. The file "**battery.log**" five minutes after the application is started.
 - Battery checks occur every 5 minutes.
-
-
 
 
 -[ ] THE END
