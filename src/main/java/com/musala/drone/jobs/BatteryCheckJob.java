@@ -42,7 +42,7 @@ public class BatteryCheckJob {
         else
             file = p.toFile();
     }
-    @Scheduled(cron = "* 0/5 * * * ?")
+    @Scheduled(cron = "0 0/5 * * * ?")
     public void checkBatteryCapacity() throws IOException {
         var drones= repoService.findAll();
         fileWriter= new FileWriter(file,true);
