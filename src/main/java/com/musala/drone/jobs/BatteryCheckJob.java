@@ -33,12 +33,12 @@ public class BatteryCheckJob {
     File file;
     BatteryCheckJob() {
         String home = System.getProperty("user.home");
-//        p = Paths.get(home+"/Documents/battery.log"); // For testing on local
-        p = Paths.get("/user/local/Documents/battery.log");
+        p = Paths.get(home+"/Documents/battery.log"); // For testing on local
+//        p = Paths.get("/user/local/Documents/battery.log");
         log.info("File Exists: {}",Files.exists(p, LinkOption.NOFOLLOW_LINKS));
         if (!Files.exists(p, LinkOption.NOFOLLOW_LINKS))
-            file = new File("/user/local/Documents/battery.log");
-//            file = new File(home+"/Documents/battery.log");
+//            file = new File("/user/local/Documents/battery.log");
+            file = new File(home+"/Documents/battery.log");
         else
             file = p.toFile();
     }
