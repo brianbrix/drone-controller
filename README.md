@@ -22,7 +22,8 @@ REST API that allows clients to communicate with the drones (i.e. dispatch contr
 # Installations
 - **Tested on Ubuntu Linux and similar OS**
 
-Follow the following link to install **docker** and **docker-compose**
+Follow the following link to install **git**, **docker** and **docker-compose**
+- [ ] [Git](https://www.digitalocean.com/community/tutorials/how-to-install-git-on-ubuntu-20-04)
 - [ ] [Docker](https://docs.docker.com/engine/install/ubuntu/) 
 - [ ] [Docker Compose](https://docs.docker.com/compose/install/)
 ### Running the app
