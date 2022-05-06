@@ -121,16 +121,16 @@
 				<artifactId>spring-boot-maven-plugin</artifactId>
 				<executions>
 					<execution>
-						<id>repackage</id>
 						<goals>
 							<goal>repackage</goal>
 						</goals>
-						<configuration>
-							<skip>true</skip>
-						</configuration>
 					</execution>
 				</executions>
+				<configuration>
+					<mainClass>com.musala.drone.DroneApplication</mainClass>
+				</configuration>
 			</plugin>
+
 		</plugins>
 	</build>
 

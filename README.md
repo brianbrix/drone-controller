@@ -45,4 +45,10 @@ If run successfully this command the images required for the projects and then s
 
 [This link](http://localhost:8081/swagger-ui/#/drone-app-controller):
 http://localhost:8081/swagger-ui/#/drone-app-controller
-will take you to the API Documentation UI where
+will take you to the API Documentation UI where you can find test the various endpoints.
+
+##Assumptions 
+- Each medication item will reduce a drone's battery capacity by 10.
+- Each medication item image is a url to the image location.
+- A new drone is registered with the IDLE state.
+- Battery check logs are logged to user's **Documents** folder.

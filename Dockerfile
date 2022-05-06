@@ -1,14 +1,17 @@
 #Build Stage
 FROM maven:3.8.3-openjdk-17 AS builder
-WORKDIR /app
+#WORKDIR /app
 COPY src /home/app/src
-COPY pom.xml /app
-RUN mvn clean package
+COPY pom.xml /home/app
+RUN mvn -f /home/app/pom.xml clean package
 
 
 #Run Stage
 FROM openjdk:17-oracle
-COPY target/drone-0.0.1.jar /usr/local/lib/drone.jar
+WORKDIR /app
+RUN #cd /home/app/
+RUN ls
+COPY --from=builder /home/app/target/drone-0.0.1.jar /app/drone.jar
 EXPOSE 8081
-ENTRYPOINT ["java","-jar", "/usr/local/lib/drone.jar"]
+ENTRYPOINT ["java","-jar", "/app/drone.jar"]
 
