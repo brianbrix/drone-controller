@@ -54,4 +54,3 @@ will take you to the API Documentation UI where you can find test the various en
 - Each medication item image is a url to the image location.
 - A new drone is registered with the IDLE state.
 - Battery check logs are logged to user's **Documents** folder.
-NB: Sometimes the App may fail to create the log file. So it is recommended that you create a file called "**battery.log**" in Documents folder before running any of the commands above.
