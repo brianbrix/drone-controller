@@ -4,6 +4,7 @@ import com.musala.drone.models.Drone;
 import com.musala.drone.models.Medication;
 import com.musala.drone.models.resp.BatteryResp;
 import com.musala.drone.services.DroneService;
+import com.musala.drone.utils.ValidList;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.web.bind.annotation.*;
@@ -53,7 +54,7 @@ public class DroneAppController {
      * @throws Exception
      */
     @PostMapping(value = "{droneId}/addItems")
-    Drone addDrone(@PathVariable Long droneId, @Valid @RequestBody List<Medication> medications) throws Exception {
+    Drone addItems(@PathVariable Long droneId,  @RequestBody @Valid ValidList<Medication> medications) throws Exception {
         return droneService.loadMedicationItemsList(droneId,medications);
     }
 
