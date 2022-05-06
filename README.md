@@ -40,6 +40,7 @@ docker-compose up --build
 ```
 
 If run successfully this command the images required for the projects and then spins up the containers. It will create two containers; One for the **postgres** DB and another for the **app**.
+Then eventually it will start the application. This can be observed from the logs on the terminal.
 
 **NOTE: The application is also able to persist some initial records into the Database tables**.
 
