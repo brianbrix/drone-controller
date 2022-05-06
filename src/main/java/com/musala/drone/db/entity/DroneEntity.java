@@ -10,7 +10,6 @@ import org.hibernate.annotations.GenericGenerator;
 import javax.persistence.*;
 import javax.validation.constraints.DecimalMax;
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 
 @Table(name = "drones")
@@ -36,7 +35,7 @@ public class DroneEntity implements Serializable {
     @Enumerated(EnumType.STRING)
     private ModelEnum model;
     @DecimalMax("500.0")
-    private Double weight;
+    private Double weightLimit;
     private Double batteryCapacity;
     @Enumerated(EnumType.STRING)
     private StateEnum state;

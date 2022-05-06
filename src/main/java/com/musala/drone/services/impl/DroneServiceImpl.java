@@ -18,12 +18,9 @@ import com.musala.drone.utils.FileSaver;
 import com.musala.drone.utils.GenericMapper;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
-import org.mapstruct.factory.Mappers;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -81,7 +78,7 @@ public class DroneServiceImpl implements DroneService {
 
         var medicationEntity = genericMapper2.mapForward(medication, MedicationEntity.class);
         if (drone.getState().equals(StateEnum.IDLE) || drone.getState().equals(StateEnum.LOADING)) {
-                var weight = drone.getWeight();
+                var weight = drone.getWeightLimit();
                 weight += medication.getWeight();
                 log.info("Weight: {}", weight);
                 if (weight > 500) {
@@ -89,7 +86,7 @@ public class DroneServiceImpl implements DroneService {
                     throw new WeightException("The drone will exceed weight limit. Please Reduce the load!!!. Drone ID:" + drone.getId());
                 }
                 drone.setState(StateEnum.LOADING);
-                drone.setWeight(weight);
+                drone.setWeightLimit(weight);
                 var batteryCapacity = drone.getBatteryCapacity();
                 if (batteryCapacity < 25) {
                     drone.setState(StateEnum.LOADED);
@@ -189,7 +186,7 @@ public class DroneServiceImpl implements DroneService {
     @Override
     public Drone editDrone(Long droneId,Drone drone) {
         var optionalDroneEntity= repoService.findById(droneId);
-        if (drone.getWeight()>500)
+        if (drone.getWeightLimit()>500)
             throw  new WeightException("Weight too high.");
             if (optionalDroneEntity.isPresent()) {
                 var droneEntity = optionalDroneEntity.get();

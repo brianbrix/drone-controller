@@ -23,7 +23,7 @@ public class Drone implements Serializable {
     @Model(message = "Invalid Model given")
     private String model;
     @DecimalMax(value = "500.0", message = "Weight can only be upto 500")
-    private Double weight;
+    private Double weightLimit;
     @DecimalMax(value = "100.0",message = "Battery Capacity can only be upto 100")
     private Double batteryCapacity;
     @State(message = "Invalid State given")
