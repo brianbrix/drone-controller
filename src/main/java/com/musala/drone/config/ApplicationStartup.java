@@ -33,7 +33,7 @@ public class ApplicationStartup implements ApplicationListener<ApplicationReadyE
         {
         var d = DroneEntity.builder()
                 .batteryCapacity(100.0)
-                .weight(100.0)
+                .weightLimit(100.0)
                 .model(ModelEnum.Cruiserweight)
                 .serialNumber(RandomStringUtils.randomAlphabetic(40))
                 .state(StateEnum.IDLE)
