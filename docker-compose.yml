@@ -2,7 +2,7 @@ version: '2'
 
 services:
   app:
-    image: 'musala-drone:latest'
+    image: 'drone-controller:latest'
     build:
       context: .
       dockerfile: Dockerfile
@@ -12,7 +12,7 @@ services:
     expose:
       - 8081
     environment:
-      - SPRING_DATASOURCE_URL=jdbc:postgresql://localhost:5432/musala_drone
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://localhost:5432/drone_controller
       - SPRING_DATASOURCE_USERNAME=postgres_user
       - SPRING_DATASOURCE_PASSWORD=postgres_pass
       - SPRING_JPA_HIBERNATE_DDL_AUTO=update
