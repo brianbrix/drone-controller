@@ -23,5 +23,5 @@ $BODY$
 LANGUAGE 'plpgsql';
 
 SELECT pg_temp.create_myuser('posgres_user', 'postgress_pass');
-CREATE DATABASE musala_drone;
-GRANT ALL PRIVILEGES ON DATABASE musala_drone TO postgres_user;
+CREATE DATABASE drone_controller;
+GRANT ALL PRIVILEGES ON DATABASE drone_controller TO postgres_user;
